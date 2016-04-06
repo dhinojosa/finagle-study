@@ -3,6 +3,7 @@ package com.evolutionnext.finagle.study.client
 import com.twitter.finagle.Http
 import com.twitter.finagle.builder.ClientBuilder
 import com.twitter.finagle.http.{Method, Request, Response, Version}
+import com.twitter.finagle.transport.Transport
 import com.twitter.util.Future
 import org.scalatest.FunSuite
 
@@ -31,6 +32,26 @@ class ClientTest extends FunSuite {
       .hosts("google.com:80")
       .hostConnectionLimit(3)
       .build()
+
+    val future: Future[Response] = service(Request(Version.Http11,
+      Method.Get, "/"))
+
+    future onSuccess { response: Response =>
+      println("received response " + response.getContentString())
+    }
+
+    future onFailure { throwable: Throwable =>
+      println("received failure " + throwable.getMessage)
+    }
+
+    Thread sleep 10000
+  }
+
+  test("Creating a client with the new Finagle 6 API") {
+
+    val service = Http.client
+      .configured(Transport.Options(noDelay = false, reuseAddr = false))
+      .newService("google.com:80")
 
     val future: Future[Response] = service(Request(Version.Http11,
       Method.Get, "/"))

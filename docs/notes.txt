@@ -1,0 +1,54 @@
+RPC
+
+Asynchronous Computation
+Distribution Systems is Difficult
+
+Here are issues
+------------
+   Load Balance
+   Backoff when commun fails
+   Share Connections
+   Collections
+   Discovery
+   Distributed Tracing
+   Draining shutdown
+   Fan in/Fan out Querying
+
+Protocol Agnostic
+Across Many Codec? Protocol mySql, kestral, http, more
+RPC
+  Request -> Response
+  Stream
+  Pipelines (same as Stream)
+  Multiplex (Multiple Req, Res)
+  
+Allows own
+
+Using Netty/IO
+Scala and Java APIs
+
+Learn collect for Futures:
+collect[A](fs:Seq[Future[A]]):Future[Seq[A]]
+Learn join for Futures:
+join(fs:Seq[Future[_]]:Future[Unit])
+Learn select for Futures
+select(fs:Seq[Future[A]]):Future[(Try[A], Seq[Future[A]])]
+
+They used request.path instead of uri and pattern matching
+
+request.path match {
+   case "/" => Future.value(..)
+   case _ = Future.value(HttpResponse("def"))
+}
+
+So they use MyServer(client: Service[...]) extends Service[HttpRequest, httpResponse] to create a proxy (Weird)
+
+Show signature for Filter
+
+You can give a Filter a member value when instantiating.
+
+You can use Filters on clients
+
+I don't know what Thrift is.
+
+
