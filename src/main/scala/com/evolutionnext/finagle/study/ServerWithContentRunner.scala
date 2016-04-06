@@ -11,7 +11,7 @@ object ServerWithContentRunner extends App {
     def apply(req: http.Request): Future[http.Response] =
       Future.value(
         http.Response(req.version, http.Status.Ok,
-          Reader.fromFile(new File("/home/danno/.zshrc")))
+          Reader.fromFile(new File("someFile.txt")))
       )
   }
 
